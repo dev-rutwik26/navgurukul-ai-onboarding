@@ -1,0 +1,81 @@
+name: Onboarding Repo Validation
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: [dev, release, main]
+
+jobs:
+  # ─────────────────────────────────────────
+  # 1. Validate Markdown files
+  # ─────────────────────────────────────────
+  markdown-lint:
+    name: "📝 Markdown Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: Run markdownlint
+        run: markdownlint "**/*.md" --ignore node_modules
+
+  # ─────────────────────────────────────────
+  # 2. Validate GitHub Actions YAML
+  # ─────────────────────────────────────────
+  yaml-lint:
+    name: "⚙️ YAML Lint"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install yamllint
+        run: pip install yamllint
+
+      - name: Run yamllint on workflows
+        run: yamllint .github/workflows/
+
+  # ─────────────────────────────────────────
+  # 3. Check for accidentally committed secrets
+  # ─────────────────────────────────────────
+  secret-scan:
+    name: "🔐 Secret Scan"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan for secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ─────────────────────────────────────────
+  # 4. Verify .env is not committed
+  # ─────────────────────────────────────────
+  env-check:
+    name: "🚫 Check .env not committed"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fail if .env file exists
+        run: |
+          if find . -name ".env" -not -path "./.git/*" | grep -q .; then
+            echo "❌ ERROR: A .env file was found in the repository. Remove it immediately!"
+            exit 1
+          else
+            echo "✅ No .env files found. Good!"
+          fi

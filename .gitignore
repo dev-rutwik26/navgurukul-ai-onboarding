@@ -1,0 +1,87 @@
+# ================================
+# Environment & Secrets
+# ================================
+.env
+.env.local
+.env.development
+.env.production
+*.env
+
+# ================================
+# Node / JavaScript
+# ================================
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ================================
+# Python
+# ================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# ================================
+# IDE & Editor
+# ================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ================================
+# OS
+# ================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Desktop.ini
+
+# ================================
+# Testing
+# ================================
+coverage/
+.nyc_output/
+htmlcov/
+.pytest_cache/
+.coverage
+
+# ================================
+# ML / AI Models (large files)
+# ================================
+*.onnx
+*.pt
+*.pth
+*.bin
+*.h5
+models/
+checkpoints/
+
+# ================================
+# Misc
+# ================================
+*.zip
+*.tar.gz
+*.bak

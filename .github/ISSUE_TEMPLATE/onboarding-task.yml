@@ -1,0 +1,87 @@
+name: "🎓 Onboarding Task"
+description: "Track a new engineer's onboarding milestone or task"
+title: "[ONBOARDING] <Your Name> — <Task Title>"
+labels: ["onboarding", "good first issue"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Welcome to NavGurukul AI! 🚀
+        Use this template to track your onboarding tasks and milestones. 
+        Each task should have clear acceptance criteria so your team lead can verify completion.
+
+  - type: input
+    id: engineer_name
+    attributes:
+      label: "Engineer Name"
+      description: "Your full name"
+      placeholder: "e.g., Priya Sharma"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: week
+    attributes:
+      label: "Onboarding Week"
+      description: "Which week of onboarding does this task belong to?"
+      options:
+        - "Pre-Start / Day 0"
+        - "Week 1 — Foundation"
+        - "Week 2 — First Contribution"
+        - "Week 3 — Independence"
+    validations:
+      required: true
+
+  - type: textarea
+    id: task_description
+    attributes:
+      label: "Task Description"
+      description: "What needs to be done? Be specific."
+      placeholder: |
+        e.g., Set up local development environment:
+        - Install Node.js 18+ and Python 3.10+
+        - Clone the assigned repository
+        - Run the project locally and confirm the dev server starts
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance_criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "How will you (and your team lead) know this task is complete?"
+      placeholder: |
+        - [ ] Dev server runs on localhost:3000 without errors
+        - [ ] Screenshot of running app attached to this issue
+        - [ ] Team lead has verified
+    validations:
+      required: true
+
+  - type: textarea
+    id: blockers
+    attributes:
+      label: "Blockers / Questions"
+      description: "List anything blocking you or questions you have. Don't wait — ask early!"
+      placeholder: "e.g., I don't have access to the Firebase project yet."
+    validations:
+      required: false
+
+  - type: input
+    id: notion_link
+    attributes:
+      label: "Notion Task Link"
+      description: "Link to the corresponding Notion task (if applicable)"
+      placeholder: "https://notion.so/navgurukul/..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Completion Checklist"
+      options:
+        - label: "I have read the relevant section in the [Engineering Handbook](../docs/handbook.md)"
+        - label: "I have documented any blockers or questions above"
+        - label: "I am ready for team lead review"
